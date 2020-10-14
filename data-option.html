@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="vm">
+    <h1 >{{ data.a }}</h1>
+  </div>
+
+  <div id="app">
+    <p>{{ foo }}</p>
+    <!-- これは `foo` を更新しなくなります! -->
+    <button v-on:click="foo = 'baz'">Change it</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script>
+    var data = { a: 1 }
+
+    var vm = new Vue({
+      el:"#vm",
+      data: {
+        //vm.a == data.aはTrueであり、両方ともコンソール上で値を変更すると
+        //どちらも変更される。リアルタイムに再レンダリング。
+        data,
+        //よって上のdataのようにしなくても後でプロパティが必要になることがわかっているならば、
+        //空でも存在しない場合でも初期値を設定するだけで済みます。
+        newTodoText: '',
+        visitCount: 0,
+        hideCompletedTodos: false,
+        todos: [],
+        error: null
+      },
+      //createdはインスタンスが作成された後に同期的に呼ばれます。
+      //ライフサイクルフック(lifecycle hooks) 。他にもmounted、 updated、destroyed などがあります。
+      created: function () {
+        // `this` は vm インスタンスを指します
+        console.log('a is: ' + this.data.a)
+      } 
+    });
+    
+
+    var obj = {
+      foo: 'bar'
+    }
+    //既存のプロパティの変更を防ぐ
+    Object.freeze(obj)
+
+    new Vue({
+      el: '#app',
+      data: obj
+    })
+  </script>
+  
+</body>
+</html>
