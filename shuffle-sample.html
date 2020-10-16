@@ -22,6 +22,22 @@
     </transition-group>
   </div>
 
+
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+
+  <div id="example-3" style="margin-left: 100px;">
+    <button @click="show = !show">
+      Toggle render
+    </button>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated tada"
+      leave-active-class="animated bounceOutRight"
+    >
+      <p v-if="show">hello</p>
+    </transition>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
   <script>
@@ -45,6 +61,13 @@
         }
       }
     });
+
+    new Vue({
+      el: '#example-3',
+      data: {
+        show: true
+      }
+    })
   </script>
 </body>
 </html>
